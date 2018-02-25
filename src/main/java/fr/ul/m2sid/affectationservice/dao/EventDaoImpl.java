@@ -17,13 +17,10 @@ public final class EventDaoImpl implements EventDao {
                     "INSERT INTO event_assistance () " +
                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
             pstmt.execute();
-
         }
         catch (Exception e) {
             System.err.println("Erreur a l'enregistrement de l'evenement ! ");
             e.printStackTrace();
         }
     }
-
-
 }
