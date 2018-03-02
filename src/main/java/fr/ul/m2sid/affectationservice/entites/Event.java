@@ -4,14 +4,15 @@ public class Event {
 
     private Integer identifiant;
     private String idClient;
+    private boolean criticte;
 
     public Event() {
     }
 
-    public Event(Integer identifiant, String emplacement, String heure_enregistrement, String image_name, String client) {
+    public Event(Integer identifiant, String client, boolean criticte) {
         this.identifiant = identifiant;
-
         this.idClient = client;
+        this.criticte = criticte;
     }
 
     public Integer getIdentifiant() {
@@ -30,11 +31,20 @@ public class Event {
         this.idClient = idClient;
     }
 
+    public boolean isCriticte() {
+        return criticte;
+    }
+
+    public void setCriticte(boolean criticte) {
+        this.criticte = criticte;
+    }
+
     @Override
     public String toString() {
         return "Event{" +
                 "identifiant=" + identifiant +
                 ", idClient='" + idClient + '\'' +
+                ", criticte=" + criticte +
                 '}';
     }
 }

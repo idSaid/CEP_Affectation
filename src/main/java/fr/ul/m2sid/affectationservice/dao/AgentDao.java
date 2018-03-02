@@ -7,8 +7,7 @@ import java.util.TreeSet;
 
 public interface AgentDao {
 
-    TreeSet<Agent> getFreeAgents(); // a modifier par la suite
-
+    TreeSet<Agent> getFreeAgents();
     Set<Agent> getCallCenters();
 
 }

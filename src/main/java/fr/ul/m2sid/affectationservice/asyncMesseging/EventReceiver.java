@@ -12,8 +12,7 @@ public class EventReceiver {
     @Autowired
     Matcher matcher;
 
-
-    @RabbitListener(queues = RabbiMQConfig.queueName)
+    @RabbitListener(queues = RabbiMQConfig.AFFECTATION_QUEUE)
     public void receiveEventStream(Event event) {
         System.out.println("Received <" + event.toString() + ">");
         System.out.println(matcher.mapEventToAgent(event));

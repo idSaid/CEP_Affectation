@@ -15,31 +15,28 @@ public class MatcherImpl implements Matcher {
     @Autowired
     AgentDao agentDao;
 
-    @Override
-    public Pair<Integer,Integer> mapEventToCallCenter(Event event) {
-        /*Map<Integer, Integer> solution = new HashMap<>();
-        Integer idRandomCallCenter = callCenters.iterator().next().getId();
-        for (Event event: events) {
-            solution.put(event.getIdentifiant(),idRandomCallCenter);
-        }
-        return solution;*/
-        return null;
+    TreeSet<Agent> agents;
+
+    private void setAgents(){
+        this.agents = new TreeSet<>(agentDao.getFreeAgents());
     }
 
     @Override
     public Pair<Integer, Integer> mapEventToAgent(Event event) {
         Pair<Integer,Integer> eventAgent = null;
-        Agent bestAgent = new TreeSet<>(agentDao.getFreeAgents()).first();
-        TreeSet<Agent> sortedAgents = new TreeSet<>(agentDao.getFreeAgents());
-        List<Agent> callCenters = new ArrayList<>(agentDao.getCallCenters());
+        setAgents();
 
-        // Affection du meilleur agent disponible à l'evt reçu
-        if (bestAgent!=null){
-            eventAgent = new Pair<>(event.getIdentifiant(),sortedAgents.pollFirst().getId());
+        // Si on a des agents disponibles
+        if (agents!=null){
+            if(event.isCriticte()) // Si l'evenement est critique on prend le meilleur agent disponible
+                eventAgent = new Pair<>(event.getIdentifiant(),agents.first().getId());
+            else // Sinon on prend un autre agent
+                eventAgent = new Pair<>(event.getIdentifiant(),agents.last().getId());
         }
 
-        // Affection du d'un centre d'appel à l'evt reçu
+        // Sinon Affection d'un centre d'appel à l'evt reçu
         else{
+            List<Agent> callCenters = new ArrayList<>(agentDao.getCallCenters());
             eventAgent = new Pair<>(event.getIdentifiant(),callCenters.get(0).getId());
         }
 
