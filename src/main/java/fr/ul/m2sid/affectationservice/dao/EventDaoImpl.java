@@ -12,24 +12,15 @@ public final class EventDaoImpl implements EventDao {
     @Override
     public void saveEvent(Event event) {
         try {
+            //TODO repair that
             PreparedStatement pstmt = PostgresConnection.getDbCon().conn.prepareStatement(
-                    "INSERT INTO event_assistance (" +
-                            "heure_enregistrement, " +
-                            "image_name) " +
+                    "INSERT INTO event_assistance () " +
                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
-
-
-
-            pstmt.setDate(2, Converter.convertDateToSQLFormat(event.getHeure_enregistrement()));
-            pstmt.setString(13, event.getImage_name());
             pstmt.execute();
-
         }
         catch (Exception e) {
             System.err.println("Erreur a l'enregistrement de l'evenement ! ");
             e.printStackTrace();
         }
     }
-
-
 }
